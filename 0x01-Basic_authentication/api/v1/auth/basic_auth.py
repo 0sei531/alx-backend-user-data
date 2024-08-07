@@ -5,12 +5,15 @@ from api.v1.auth.auth import Auth
 from base64 import b64decode
 from models.user import User
 from typing import Tuple, Optional
+import binascii
+
 
 class BasicAuth(Auth):
     """ Basic Authentication Class """
 
     def extract_base64_authorization_header(self,
-                                            authorization_header: str) -> Optional[str]:
+                                            authorization_header: str
+                                            ) -> Optional[str]:
         """ Extract Base 64 Authorization Header """
         if authorization_header is None:
             return None
@@ -25,7 +28,8 @@ class BasicAuth(Auth):
         return encoded
 
     def decode_base64_authorization_header(self,
-                                           base64_authorization_header: str) -> Optional[str]:
+                                           base64_authorization_header: str
+                                           ) -> Optional[str]:
         """ Decodes the value of a base64 string """
         if base64_authorization_header is None:
             return None
@@ -63,7 +67,8 @@ class BasicAuth(Auth):
 
     def user_object_from_credentials(self,
                                      user_email: str,
-                                     user_pwd: str) -> Optional[User]:
+                                     user_pwd: str
+                                     ) -> Optional[User]:
         """
         Returns the User instance based on their
         email and password
