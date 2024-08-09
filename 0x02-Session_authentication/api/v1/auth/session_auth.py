@@ -9,7 +9,7 @@ import uuid
 
 
 class SessionAuth(Auth):
-    """ Session Authentication class inherits from Auth """
+    """Session Authentication class inherits from Auth"""
 
     user_id_by_session_id: dict[str, str] = {}
 
@@ -29,7 +29,9 @@ class SessionAuth(Auth):
         self.user_id_by_session_id[session_id] = user_id
         return session_id
 
-    def user_id_for_session_id(self, session_id: Optional[str] = None) -> Optional[str]:
+    def user_id_for_session_id(
+            self, session_id: Optional[str] = None
+    ) -> Optional[str]:
         """Retrieves the user ID associated with a given session ID
 
         Args:
