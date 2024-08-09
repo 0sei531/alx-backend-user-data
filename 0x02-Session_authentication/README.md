@@ -1,38 +1,43 @@
-# Session Authentication
+# Basic Authentication
 
-## Table of Contents
-- [Introduction](#introduction)
-- [Features](#features)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Routes](#api-routes)
-  - [Login](#login)
-  - [Logout](#logout)
-- [Testing](#testing)
-- [Project Structure](#project-structure)
-- [License](#license)
-- [Contributing](#contributing)
-- [Authors](#authors)
+## Project Overview
 
-## Introduction
-This project implements a session-based authentication system using Flask. The system allows users to log in and log out securely using session IDs stored in cookies, providing a convenient way to authenticate users without requiring them to enter their credentials repeatedly.
+This project involves implementing Basic Authentication on a simple API. The aim is to understand the authentication process by building it step-by-step. Although in real-world scenarios it's recommended to use existing modules or frameworks for authentication, this project helps in grasping the underlying mechanism.
 
-## Features
-- **Session-based authentication**: Users authenticate using session IDs stored in cookies.
-- **Secure login**: Passwords are validated securely.
-- **Easy logout**: Users can log out, destroying the session.
-- **API integration**: Simple APIs to handle login and logout actions.
+## Learning Objectives
+
+By the end of this project, you should be able to:
+
+- Explain what authentication means.
+- Understand what Base64 encoding is.
+- Encode a string in Base64.
+- Explain Basic authentication.
+- Send the Authorization header.
 
 ## Requirements
-- Python 3.7+
-- Flask
-- Werkzeug 0.12.1+
-- Ubuntu 18.04 LTS
-- Git
 
-## Installation
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/<your_username>/alx-backend-user-data.git
-   cd alx-backend-user-data/0x02-Session_authentication
+- All files are interpreted/compiled on Ubuntu 18.04 LTS using Python 3.7.
+- Files should end with a new line.
+- The first line of all files should be exactly `#!/usr/bin/env python3`.
+- A `README.md` file is mandatory.
+- Code should follow the `pycodestyle` style (version 2.5).
+- All files must be executable.
+- Modules, classes, and functions must have proper documentation.
+
+## Project Structure
+
+```plaintext
+alx-backend-user-data/
+├── 0x01-Basic_authentication/
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── v1/
+│   │   │   ├── __init__.py
+│   │   │   ├── app.py
+│   │   │   ├── views/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── index.py
+│   ├── main_0.py
+│   ├── main_1.py
+│   ├── requirements.txt
+│   ├── README.md
