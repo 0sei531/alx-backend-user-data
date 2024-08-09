@@ -20,7 +20,8 @@ class SessionAuth(Auth):
             user_id (str, optional): The user ID for which to create a session.
 
         Returns:
-            Optional[str]: The created session ID or None if user_id is invalid.
+            Optional[str]: The created session ID or None if user_id is
+                           invalid.
         """
         if not isinstance(user_id, str) or not user_id:
             return None
@@ -39,7 +40,8 @@ class SessionAuth(Auth):
                                         the user ID.
 
         Returns:
-            Optional[str]: The associated user ID or None if session_id is invalid.
+            Optional[str]: The associated user ID or None if session_id
+                           is invalid.
         """
         if not isinstance(session_id, str) or not session_id:
             return None
@@ -53,20 +55,23 @@ class SessionAuth(Auth):
             request: The HTTP request containing the session cookie.
 
         Returns:
-            Optional[User]: The User instance or None if no valid user is found.
+            Optional[User]: The User instance or None if no valid user
+                             is found.
         """
         session_id = self.session_cookie(request)
         user_id = self.user_id_for_session_id(session_id)
         return User.get(user_id) if user_id else None
 
     def destroy_session(self, request=None) -> bool:
-        """Deletes the session for the current user, effectively logging them out
+        """Deletes the session for the current user, effectively logging
+        them out
 
         Args:
             request: The HTTP request containing the session cookie.
 
         Returns:
-            bool: True if the session was successfully deleted, False otherwise.
+            bool: True if the session was successfully deleted,
+                  False otherwise.
         """
         session_id = self.session_cookie(request)
         if not session_id:
