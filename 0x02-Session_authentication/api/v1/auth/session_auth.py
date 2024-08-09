@@ -24,7 +24,7 @@ class SessionAuth(Auth):
         """
         if not isinstance(user_id, str) or not user_id:
             return None
-        
+
         session_id = str(uuid.uuid4())
         self.user_id_by_session_id[session_id] = user_id
         return session_id
@@ -40,7 +40,7 @@ class SessionAuth(Auth):
         """
         if not isinstance(session_id, str) or not session_id:
             return None
-        
+
         return self.user_id_by_session_id.get(session_id)
 
     def current_user(self, request=None) -> Optional[User]:
@@ -68,9 +68,9 @@ class SessionAuth(Auth):
         session_id = self.session_cookie(request)
         if not session_id:
             return False
-        
+
         if session_id in self.user_id_by_session_id:
             del self.user_id_by_session_id[session_id]
             return True
-        
+
         return False
