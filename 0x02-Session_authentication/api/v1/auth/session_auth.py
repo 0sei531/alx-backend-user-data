@@ -33,7 +33,8 @@ class SessionAuth(Auth):
         """Retrieves the user ID associated with a given session ID
 
         Args:
-            session_id (str, optional): The session ID for which to retrieve the user ID.
+            session_id (str, optional): The session ID for which to retrieve 
+                                        the user ID.
 
         Returns:
             Optional[str]: The associated user ID or None if session_id is invalid.
