@@ -39,7 +39,7 @@ class SessionDBAuth(SessionExpAuth):
             session_id (str): The session ID to look up.
 
         Returns:
-            str: The user ID associated with the session ID, or None if 
+            str: The user ID associated with the session ID, or None if
                 invalid or expired.
         """
         if session_id is None or not isinstance(session_id, str):
