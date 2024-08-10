@@ -15,7 +15,8 @@ def login():
 
     Returns:
         - JSON representation of the user if successful
-        - Error message if email or password is missing, or authentication fails
+        - Error message if email or password is missing,
+          or authentication fails
     """
     email = request.form.get('email')
     password = request.form.get('password')
