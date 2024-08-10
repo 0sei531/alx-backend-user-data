@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """ Module of Authentication
 """
+
 from flask import request
 from typing import List, TypeVar
 from os import getenv
+
 
 class Auth:
     """ Class to manage the API authentication """
@@ -29,7 +31,7 @@ class Auth:
     def authorization_header(self, request=None) -> str:
         """ Method that handles authorization header """
         if request is None:
-            return None
+            return Non
         return request.headers.get("Authorization")
 
     def current_user(self, request=None) -> TypeVar('User'):
