@@ -4,6 +4,7 @@ from api.v1.auth.session_auth import SessionAuth
 from os import getenv
 from datetime import datetime, timedelta
 
+
 class SessionExpAuth(SessionAuth):
     ''' Extend behavior of SessionAuth class for session expiry. '''
 
