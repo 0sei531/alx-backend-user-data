@@ -15,7 +15,7 @@ from api.v1.app import auth
 )
 def login():
     """ POST /auth_session/login
-    Handle user login. 
+    Handle user login.
 
     Returns:
         - 400 if email or password is missing
