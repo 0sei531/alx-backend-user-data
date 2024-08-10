@@ -17,7 +17,7 @@ class Auth:
 
         # Add slash to all cases for consistency
         path = path.rstrip('/') + '/'
-        
+
         for excluded_path in excluded_paths:
             excluded_path = excluded_path.rstrip('/') + '/'
             if excluded_path.endswith('*'):
