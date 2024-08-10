@@ -70,7 +70,8 @@ class SessionDBAuth(SessionExpAuth):
             request: The request object containing session information.
 
         Returns:
-            bool: True if the session was successfully removed, False otherwise.
+            bool: True if the session was successfully removed,
+            False otherwise.
         """
         if request is None:
             return False
