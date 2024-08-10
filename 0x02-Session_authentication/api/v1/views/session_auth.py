@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """ Module of Session authentication views """
+
 from api.v1.views import app_views
 from flask import abort, jsonify, request
 from models.user import User
 from os import getenv
+
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login():
@@ -37,6 +39,7 @@ def login():
     response = jsonify(user.to_json())
     response.set_cookie(SESSION_NAME, session_id)
     return response
+
 
 @app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
 def logout():
