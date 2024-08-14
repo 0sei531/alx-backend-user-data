@@ -46,11 +46,13 @@ class Auth:
         """
         try:
             user = self._db.find_user_by(email=email)
-            return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
+            return bcrypt.checkpw(password.encode('utf-8'),
+                                  user.hashed_password)
         except NoResultFound:
             return False
 
-    def create_session(self, email: str) -> Union[str, None]:
+    def create_session(self, email: str
+                       ) -> Union[str, None]:
         """ Creates a new session ID for the user and stores it in the database.
 
         Returns the session ID as a string, or None if the user is not found.
@@ -93,12 +95,14 @@ class Auth:
             self._db.update_user(user.id, reset_token=reset_token)
             return reset_token
         except NoResultFound:
-            raise ValueError(f"No user found with email {email}")
+            raise ValueError(
+                f"No user found with email {email}")
 
     def update_password(self, reset_token: str, password: str) -> None:
         """ Updates the user's password using the provided reset token.
 
-        Resets the password and invalidates the reset token. Raises a ValueError if the token is invalid.
+        Resets the password and invalidates the reset token. 
+        Raises a ValueError if the token is invalid.
         """
         if reset_token is None or password is None:
             raise ValueError("Reset token and password cannot be None")
