@@ -28,7 +28,7 @@ class Auth:
 
     def register_user(self, email: str, password: str) -> User:
         """ Registers a new user with the provided email and password.
-        
+
         If the email is already registered, raises a ValueError.
         """
         try:
@@ -41,7 +41,7 @@ class Auth:
 
     def valid_login(self, email: str, password: str) -> bool:
         """ Validates the login credentials.
-        
+
         Returns True if the password is correct, otherwise False.
         """
         try:
@@ -52,7 +52,7 @@ class Auth:
 
     def create_session(self, email: str) -> Union[str, None]:
         """ Creates a new session ID for the user and stores it in the database.
-        
+
         Returns the session ID as a string, or None if the user is not found.
         """
         try:
@@ -65,7 +65,7 @@ class Auth:
 
     def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
         """ Retrieves a user from the database based on the session ID.
-        
+
         Returns the User object or None if the session ID is invalid.
         """
         if session_id is None:
@@ -80,11 +80,11 @@ class Auth:
         try:
             self._db.update_user(user_id, session_id=None)
         except NoResultFound:
-            pass  # Session is already None or user does not exist.
+            pass
 
     def get_reset_password_token(self, email: str) -> str:
         """ Generates a reset password token and updates the user's record.
-        
+
         Returns the reset token, or raises a ValueError if the user is not found.
         """
         try:
@@ -97,7 +97,7 @@ class Auth:
 
     def update_password(self, reset_token: str, password: str) -> None:
         """ Updates the user's password using the provided reset token.
-        
+
         Resets the password and invalidates the reset token. Raises a ValueError if the token is invalid.
         """
         if reset_token is None or password is None:
@@ -106,6 +106,10 @@ class Auth:
         try:
             user = self._db.find_user_by(reset_token=reset_token)
             hashed_password = _hash_password(password)
-            self._db.update_user(user.id, hashed_password=hashed_password, reset_token=None)
+            self._db.update_user(
+                user.id,
+                hashed_password=hashed_password,
+                reset_token=None
+            )
         except NoResultFound:
             raise ValueError("Invalid reset token")
