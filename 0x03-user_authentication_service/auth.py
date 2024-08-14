@@ -51,7 +51,8 @@ class Auth:
             return False
 
     def create_session(self, email: str) -> Union[str, None]:
-        """ Creates a new session ID for the user and stores it in the database.
+        """ Creates a new session ID for the user
+        and stores it in the database.
 
         Returns the session ID as a string, or None if the user is not found.
         """
@@ -85,7 +86,9 @@ class Auth:
     def get_reset_password_token(self, email: str) -> str:
         """ Generates a reset password token and updates the user's record.
 
-        Returns the reset token, or raises a ValueError if the user is not found.
+        Returns the reset token, or raises a ValueError
+        if the user is not found.
+
         """
         try:
             user = self._db.find_user_by(email=email)
@@ -98,7 +101,8 @@ class Auth:
     def update_password(self, reset_token: str, password: str) -> None:
         """ Updates the user's password using the provided reset token.
 
-        Resets the password and invalidates the reset token. Raises a ValueError if the token is invalid.
+        Resets the password and invalidates the reset token. Raises
+        a ValueError if the token is invalid.
         """
         if reset_token is None or password is None:
             raise ValueError("Reset token and password cannot be None")
