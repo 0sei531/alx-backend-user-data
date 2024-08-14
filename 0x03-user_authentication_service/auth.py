@@ -46,9 +46,12 @@ class Auth:
         """
         try:
             user = self._db.find_user_by(email=email)
-            return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
-        except NoResultFound:
+            password_bytes = password.encode('utf-8')
+            hashed_password = user.hashed_password
+            return bcrypt.checkpw(password_bytes, hashed_password)
+            except NoResultFound:
             return False
+
 
     def create_session(self, email: str) -> Union[str, None]:
         """ Creates a new session ID for the user
