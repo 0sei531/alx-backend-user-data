@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
-""" End-to-End Integration Test
-    This script tests user registration, login, profile access, logout,
-    password reset token generation, and password update.
-"""
+""" Testing of main files """
+
 import requests
 
 BASE_URL = 'http://localhost:5000'
@@ -12,88 +10,119 @@ NEW_PASSWD = "t4rt1fl3tt3"
 
 
 def register_user(email: str, password: str) -> None:
-    """ Test user registration. """
-    data = {"email": email, "password": password}
+    """ Test for validating user registration """
+    data = {
+        "email": email,
+        "password": password
+    }
     response = requests.post(f'{BASE_URL}/users', data=data)
+
     msg = {"email": email, "message": "user created"}
-    assert response.status_code == 200, "Failed to register user"
-    assert response.json() == msg, "Unexpected response for user registration"
-    print("User registration successful.")
+
+    assert response.status_code == 200
+    assert response.json() == msg
 
 
 def log_in_wrong_password(email: str, password: str) -> None:
-    """ Test login with incorrect password. """
-    data = {"email": email, "password": password}
+    """ Test for validating log in with wrong password """
+    data = {
+        "email": email,
+        "password": password
+    }
     response = requests.post(f'{BASE_URL}/sessions', data=data)
-    assert response.status_code == 401, "Expected 401 for wrong password"
-    print("Login with wrong password correctly failed.")
+
+    assert response.status_code == 401
 
 
 def log_in(email: str, password: str) -> str:
-    """ Test login with correct password. """
-    data = {"email": email, "password": password}
+    """ Test for validating successful log in """
+    data = {
+        "email": email,
+        "password": password
+    }
     response = requests.post(f'{BASE_URL}/sessions', data=data)
+
     msg = {"email": email, "message": "logged in"}
-    assert response.status_code == 200, "Failed to login"
-    assert response.json() == msg, "Unexpected response for login"
+
+    assert response.status_code == 200
+    assert response.json() == msg
+
     session_id = response.cookies.get("session_id")
-    print("Login successful.")
+
     return session_id
 
 
 def profile_unlogged() -> None:
-    """ Test profile access without login. """
-    response = requests.get(f'{BASE_URL}/profile')
-    assert response.status_code == 403, "Expected 403 for no session"
-    print("Profile access without login correctly denied.")
+    """ Test for validating profile request without log in """
+    cookies = {
+        "session_id": ""
+    }
+    response = requests.get(f'{BASE_URL}/profile', cookies=cookies)
+
+    assert response.status_code == 403
 
 
 def profile_logged(session_id: str) -> None:
-    """ Test profile access with valid session. """
-    cookies = {"session_id": session_id}
+    """ Test for validating profile request logged in """
+    cookies = {
+        "session_id": session_id
+    }
     response = requests.get(f'{BASE_URL}/profile', cookies=cookies)
+
     msg = {"email": EMAIL}
-    assert response.status_code == 200, "Failed to access profile with session"
-    assert response.json() == msg, "Unexpected response for logged-in profile"
-    print("Profile access with valid session successful.")
+
+    assert response.status_code == 200
+    assert response.json() == msg
 
 
 def log_out(session_id: str) -> None:
-    """ Test logout. """
-    cookies = {"session_id": session_id}
+    """ Test for validating log out endpoint """
+    cookies = {
+        "session_id": session_id
+    }
     response = requests.delete(f'{BASE_URL}/sessions', cookies=cookies)
-    assert response.status_code == 200, "Failed to log out"
-    assert response.json() == {"message": "Bienvenue"}, "Unexpected response for logout"
-    print("Logout successful.")
+
+    msg = {"message": "Bienvenue"}
+
+    assert response.status_code == 200
+    assert response.json() == msg, "Unexpected response for logout"
 
 
 def reset_password_token(email: str) -> str:
-    """ Test password reset token generation. """
-    data = {"email": email}
+    """ Test for validating password reset token """
+    data = {
+        "email": email
+    }
     response = requests.post(f'{BASE_URL}/reset_password', data=data)
-    assert response.status_code == 200, "Failed to get reset token"
+
+    assert response.status_code == 200
+
     reset_token = response.json().get("reset_token")
+
     msg = {"email": email, "reset_token": reset_token}
-    assert response.json() == msg, "Unexpected response for reset token"
-    print("Password reset token generation successful.")
+
+    assert response.json() == msg
+
     return reset_token
 
 
 def update_password(email: str, reset_token: str, new_password: str) -> None:
-    """ Test password update. """
+    """ Test for validating password reset (update) """
     data = {
         "email": email,
         "reset_token": reset_token,
         "new_password": new_password
     }
     response = requests.put(f'{BASE_URL}/reset_password', data=data)
+
     msg = {"email": email, "message": "Password updated"}
-    assert response.status_code == 200, "Failed to update password"
-    assert response.json() == msg, "Unexpected response for password update"
-    print("Password update successful.")
+
+    assert response.status_code == 200
+    assert response.json() == msg
 
 
 if __name__ == "__main__":
+
     register_user(EMAIL, PASSWD)
     log_in_wrong_password(EMAIL, NEW_PASSWD)
     profile_unlogged()
