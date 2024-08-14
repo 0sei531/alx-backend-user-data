@@ -23,8 +23,8 @@ def register_user() -> str:
             - email
             - password
         Returns:
-            - 201 if user is created
-            - 400 if email is already registered
+            - 200 if user is created
+            - 400 if email is already registered or inputs are missing
     """
     email = request.form.get('email')
     password = request.form.get('password')
@@ -33,8 +33,8 @@ def register_user() -> str:
         abort(400, description="Email and password are required.")
 
     try:
-        user = AUTH.register_user(email, password)
-        return jsonify({"email": email, "message": "user created"}), 201
+        AUTH.register_user(email, password)
+        return jsonify({"email": email, "message": "user created"}), 200
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
 
@@ -134,12 +134,7 @@ def update_password() -> str:
     new_password = request.form.get('new_password')
 
     if not email or not reset_token or not new_password:
-        abort(
-            400,
-            description=(
-                "Email, reset token, and new password are required."
-            )
-        )
+        abort(400, description="Email, reset token, and new password are required.")
 
     try:
         AUTH.update_password(reset_token, new_password)
