@@ -19,6 +19,7 @@ from sqlalchemy import Column, Integer, String
 
 Base = declarative_base()
 
+
 class User(Base):
     """ SQLAlchemy model for the 'users' table. """
     __tablename__ = 'users'
