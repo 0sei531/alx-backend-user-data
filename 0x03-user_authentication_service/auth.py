@@ -101,7 +101,7 @@ class Auth:
     def update_password(self, reset_token: str, password: str) -> None:
         """ Updates the user's password using the provided reset token.
 
-        Resets the password and invalidates the reset token. 
+        Resets the password and invalidates the reset token.
         Raises a ValueError if the token is invalid.
         """
         if reset_token is None or password is None:
