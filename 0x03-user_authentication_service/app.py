@@ -23,14 +23,11 @@ def register_user() -> str:
             - email
             - password
         Returns:
-            - 200 if user is created
+            - 201 if user is created
             - 400 if email is already registered
     """
     email = request.form.get('email')
     password = request.form.get('password')
-
-    if not email or not password:
-        abort(400, description="Email and password are required.")
 
     try:
         user = AUTH.register_user(email, password)
