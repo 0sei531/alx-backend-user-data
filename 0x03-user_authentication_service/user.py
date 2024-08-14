@@ -13,6 +13,7 @@ This model defines a table named 'users' with the following columns:
 The model is intended to be used in a database managed by SQLAlchemy ORM.
 """
 
+
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 
